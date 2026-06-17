@@ -1,17 +1,14 @@
 <?php
 
-//some stuff here in php
+require_once 'db.php';
 
-include "db.php";
+$id = $_GET['id'];
 
-$sql = "SELECT * FROM intern";
-$result = mysqli_query($conn, $sql);
+$sql = "SELECT * FROM intern where id =$id";
+$res = mysqli_query($conn, $sql);
 
-$interns = mysqli_fetch_all($result, MYSQLI_ASSOC); //returns an array of all interns
+$data = mysqli_fetch_assoc($res);  //returns a single reocord
 
-
-
-// var_dump($interns); return;
 
 ?>
 
@@ -69,47 +66,42 @@ $interns = mysqli_fetch_all($result, MYSQLI_ASSOC); //returns an array of all in
 
  <div class="container">
 
-  <h4>View Interns</h4>
+  <form method="POST" action="updateController.php?id=<?= $data['id'] ?>">
+    <div class="row">
+      <h4>PHP TRACK</h4>
+    </div>
 
-  <table class="table table-striped">
+<div class="row">
 
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Programming Stack</th>
-            <th>Action</th>
-        </tr>
-        
-    </thead>
+  <div class="col-sm-6">
+    <label for="ln" class="form-label">First Name</label>
+    <input type="text" class="form-control" name="fname" value="<?= $data['first_name'] ?>">
+  </div>
 
-    <tboday>
+  <div class="col-sm-6">
+    <label for="sn" class="form-label">Last Name</label>
+    <input type="text" class="form-control" name="lname" value="<?= $data['last_name'] ?>">
+  </div>
 
-    <?php foreach($interns as $intern) {?>
-        <tr>
-            <th scope="row"><?= $intern['id'] ?></th>
-            <td><?= $intern['first_name'] ?></td>
-            <td><?= $intern['last_name'] ?></td>
-            <td><?= $intern['email'] ?></td>
-            <td><?= $intern['programming_stack'] ?></td>
-            <td>
-                <a href="deleteController.php?id=<?php echo $intern['id'] ?>">Delete</a>
-                &nbsp;  &nbsp;  &nbsp;
+</div>
 
-                <a href="update.php?id=<?= $intern['id'] ?>">Edit</a>
-            </td>
-        </tr>
+<div class="row">
 
-        <?php } ?>
+  <div class="col-sm-6">
+    <label for="ln" class="form-label">Email</label>
+    <input type="email" class="form-control" name="email" value="<?= $data['email'] ?>">
+  </div>
 
+  <div class="col-sm-6">
+    <label for="sn" class="form-label">Programming stack</label>
+    <input type="text" class="form-control" name="stack" value="<?= $data['programming_stack'] ?>">
+  </div>
 
-    </tboday>
-
-
-  </table>
-
+</div>
+ 
+  <br/>
+  <button type="submit" class="btn btn-primary">Update</button>
+  </form>
 
  </div>
 
