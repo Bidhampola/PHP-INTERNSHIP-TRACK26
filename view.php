@@ -10,7 +10,6 @@ $result = mysqli_query($conn, $sql);
 $interns = mysqli_fetch_all($result, MYSQLI_ASSOC); //returns an array of all interns
 
 
-
 // var_dump($interns); return;
 
 ?>
@@ -69,7 +68,18 @@ $interns = mysqli_fetch_all($result, MYSQLI_ASSOC); //returns an array of all in
 
  <div class="container">
 
-  <h4>View Interns</h4>
+ <div class="row">
+  <?php if(!empty($_GET)){ ?>
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <?= $_GET['msg'] ?>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <?php } ?>
+    
+
+ </div>
 
   <table class="table table-striped">
 

@@ -5,6 +5,7 @@ $usernmame = "root";
 $password = "brian";
 $dbname = "internship062026";
 
+
 $conn = mysqli_connect($host, $usernmame, $password, $dbname);
 
 if (!$conn) {
